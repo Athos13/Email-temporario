@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-const EmailAtual=({estadoEmail})=>{
+const EmailAtual=({estadoEmail,estadoNotifica,setValorNotifica})=>{
   const inputEmail = useRef()
 
     function copiar(){
@@ -8,6 +8,10 @@ const EmailAtual=({estadoEmail})=>{
       document.execCommand("copy")
     }
 
+    function alteraPermiNotifi(){
+      setValorNotifica((estadoNotifica)=>!estadoNotifica)
+      console.log(estadoNotifica)
+    }
 
 return <div>
             <h3 >Seu Email Temporário é:</h3>
@@ -19,7 +23,11 @@ return <div>
           }  
 
            {estadoEmail && <button onClick={copiar}>Copiar email</button>}
-           <button>Notificação</button>
+
+           <button style={estadoNotifica?{color:"green"}:{color:"red"}}
+            onClick={alteraPermiNotifi}>
+            Notificação {estadoNotifica? "ativada":"desativada"}
+            </button>
         </div>
    
 }
