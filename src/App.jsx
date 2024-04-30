@@ -12,11 +12,50 @@ const App = () => {
   const [emailRecebidos, setEmailRecebidos] = React.useState([])
   const [notificar, setNotificar] = React.useState(false)
  
+function salvaLocalStorage(data){
+  setEmail(data)
+  window.localStorage.setItem("email",JSON.stringify(data))
+}
+
+function testaValidadeSession(dadosSession){
+  const buscaEmails = async ()=>{
+    const requisicao = fetch("https://dropmail.p.rapidapi.com/",{
+      method:"POST",
+      headers:{  
+        'x-rapidapi-key': '285c294c94mshf770cfd187a1f57p1fe799jsn1d9c38023f31',
+        'x-rapidapi-host': 'dropmail.p.rapidapi.com',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        query:`{
+        session(id: "${dadosSession.introduceSession.id}") {
+            mails{
+                rawSize,
+                fromAddr,
+                toAddr,
+                downloadUrl,
+                text,
+                headerSubject
+            }
+        }
+    }`
+      })  
+    })
+    let resposta = await requisicao
+    let respostaJson = await resposta.json()
+    console.log(resposta, respostaJson)
+    if(resposta.status == 200 && !respostaJson.errors){
+      setEmail(dadosSession)
+    }else{
+      criaNovaSession()
+    }
+  }
+ buscaEmails()
+}
 
 
-
-React.useEffect(()=>{
-        fetch("https://dropmail.p.rapidapi.com/",{
+ function criaNovaSession(){
+  fetch("https://dropmail.p.rapidapi.com/",{
         method:"POST",
         headers:{  
           'x-rapidapi-key': '285c294c94mshf770cfd187a1f57p1fe799jsn1d9c38023f31',
@@ -36,8 +75,19 @@ React.useEffect(()=>{
       })
       .then((response)=>response.json())
       .then(json => json.data)
-      .then((data) => setEmail(data))
+      .then((data) =>salvaLocalStorage(data))
       .catch(err => console.log(err.message))
+ }
+
+React.useEffect(()=>{
+      
+      let dadosLocal = window.localStorage.getItem("email");
+      let dadosLocalJson = JSON.parse(dadosLocal);
+      if(dadosLocal){
+        testaValidadeSession(dadosLocalJson)
+      }else{
+        criaNovaSession()
+      }
 },[])
 
    
@@ -124,7 +174,7 @@ React.useEffect(()=>{
      <DadosGlobais>
      <div style={{minHeight:"400px",border:"solid 2px yellow", display:"grid", gridTemplateColumns:"300px 1fr", gap:"12px"}}>
         <EmailsRecebidos meusEmails={emailRecebidos} /> 
-        <EmailSelecionado/>
+        <EmailSelecionado idSessao={email}/>
      </div>
      </DadosGlobais>
      <Footer/>
