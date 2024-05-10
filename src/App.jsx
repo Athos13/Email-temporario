@@ -93,9 +93,9 @@ React.useEffect(()=>{
    
 React.useEffect(()=>{ 
   let intervalo
-if(email){
+  if(email){
       intervalo=setInterval(()=>{
-        const buscaEmails = async ()=>{
+          const buscaEmails = async ()=>{
             const requisicao = fetch("https://dropmail.p.rapidapi.com/",{
               method:"POST",
               headers:{  
@@ -121,17 +121,27 @@ if(email){
             let resposta = await requisicao
             let respostaJson = await resposta.json()
             let respostaDadoFinal = await respostaJson.data.session.mails
-            setaEmailsRecebidos(respostaDadoFinal)
-        }
-                  
+
+            if(resposta.status == 200 && !respostaJson.errors){
+              setaEmailsRecebidos(respostaDadoFinal)
+            }
+            else{
+              clearInterval(intervalo)
+              criaNovaSession()
+            }
+            /**let resposta = await requisicao
+            let respostaJson = await resposta.json()
+            let respostaDadoFinal = await respostaJson.data.session.mails
+            setaEmailsRecebidos(respostaDadoFinal) */
+        }        
           buscaEmails()
       },[15000])
-  
-        setTimeout(()=>{
-          clearInterval(intervalo)
-        },[120000])
-}
+    
+      
+  }
 },[email])
+
+
 
 function setaEmailsRecebidos(respostaDadoFinal){
   //seta emailRecebidos com responseJson se o tamanho tiver mudado(tenho novos emails)
