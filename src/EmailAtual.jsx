@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import SgvNotificar from "./SvgNotificar";
 
 const EmailAtual=({estadoEmail,estadoNotifica,setValorNotifica})=>{
   const inputEmail = useRef()
@@ -13,20 +14,27 @@ const EmailAtual=({estadoEmail,estadoNotifica,setValorNotifica})=>{
       console.log(estadoNotifica)
     }
 
-return <div>
-            <h3 >Seu Email Temporário é:</h3>
+return <div className="EmailAtual-container">
+            <h2 className="EmailAtual-h2">Seu Email Temporário é:</h2>
 
-          {estadoEmail ?<input ref={inputEmail} className="textoEmail" value={estadoEmail.introduceSession.addresses[0].address}
-           onChange={()=>{estadoEmail.introduceSession.addresses[0].address}}/>
+          {estadoEmail ?
+          <label> Email:
+          <input ref={inputEmail} className="textoEmail" value={estadoEmail.introduceSession.addresses[0].address}
+           onChange={()=>{estadoEmail.introduceSession.addresses[0].address}} readOnly/>
+          </label>
           :
            <span>Nenhum email ainda</span>
           }  
 
-           {estadoEmail && <button onClick={copiar}>Copiar email</button>}
+           {estadoEmail && <button className="copiar-email" onClick={copiar}>COPIAR</button>}
 
-           <button style={estadoNotifica?{color:"green"}:{color:"red"}}
-            onClick={alteraPermiNotifi}>
-            Notificação {estadoNotifica? "ativada":"desativada"}
+           <button className="notificar-email" style={estadoNotifica?{color:"green"}:{color:"#940000"}}
+            onClick={alteraPermiNotifi} aria-label="botão de notificações">
+             <div className="notificar-container-svg">
+                  NOTIFICAR
+                  {/* Notificação {estadoNotifica? "ativada":"desativada"} */}
+                  <SgvNotificar color={estadoNotifica? "green":"black"}></SgvNotificar>
+              </div> 
             </button>
         </div>
    

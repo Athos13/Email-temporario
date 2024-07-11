@@ -11,7 +11,7 @@ const App = () => {
   const [email, setEmail] = React.useState(null);
   const [emailRecebidos, setEmailRecebidos] = React.useState([])
   const [notificar, setNotificar] = React.useState(false)
- 
+
 function salvaLocalStorage(data){
   setEmail(data)
   window.localStorage.setItem("email",JSON.stringify(data))
@@ -135,7 +135,7 @@ React.useEffect(()=>{
             setaEmailsRecebidos(respostaDadoFinal) */
         }        
           buscaEmails()
-      },[15000])
+      },[/*15000*/90000])
     
       
   }
@@ -182,7 +182,7 @@ React.useEffect(()=>{
      <Header/>
      <EmailAtual estadoEmail={email} estadoNotifica={notificar} setValorNotifica={setNotificar}/>
      <DadosGlobais>
-     <div style={{minHeight:"400px",border:"solid 2px yellow", display:"grid", gridTemplateColumns:"300px 1fr", gap:"12px"}}>
+     <div className='container-recebidos_selec'>
         <EmailsRecebidos meusEmails={emailRecebidos} /> 
         <EmailSelecionado idSessao={email}/>
      </div>

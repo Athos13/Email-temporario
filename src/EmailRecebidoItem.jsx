@@ -7,15 +7,19 @@ const EmailRecebidoItem = ({titulo,autor,conteudo})=>{
     function selecionaComEnter(event){
         if(event.key==='Enter'){
             global.setEmailGlobal({titulo, autor, conteudo})
+            global.setModal(true)
         }
     }
 
     return <li className="divEmail"
     tabIndex={0} 
-    onClick={()=>{global.setEmailGlobal({titulo, autor,conteudo})}}
+    onClick={()=>{
+        global.setEmailGlobal({titulo, autor,conteudo})
+        global.setModal(true)
+    }}
     onKeyDown={selecionaComEnter}
     >
-        <h4>{titulo}</h4>
+        <h3>{titulo}</h3>
         <span>Autor: {autor}</span>
         <p>{conteudo}</p>
     </li>
