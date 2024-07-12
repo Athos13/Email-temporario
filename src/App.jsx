@@ -12,6 +12,7 @@ const App = () => {
   const [emailRecebidos, setEmailRecebidos] = React.useState([])
   const [notificar, setNotificar] = React.useState(false)
 
+
 function salvaLocalStorage(data){
   setEmail(data)
   window.localStorage.setItem("email",JSON.stringify(data))
@@ -43,7 +44,7 @@ function testaValidadeSession(dadosSession){
     })
     let resposta = await requisicao
     let respostaJson = await resposta.json()
-    console.log(resposta, respostaJson)
+    
     if(resposta.status == 200 && !respostaJson.errors){
       setEmail(dadosSession)
     }else{
@@ -54,30 +55,65 @@ function testaValidadeSession(dadosSession){
 }
 
 
- function criaNovaSession(){
-  fetch("https://dropmail.p.rapidapi.com/",{
-        method:"POST",
-        headers:{  
-          'x-rapidapi-key': '285c294c94mshf770cfd187a1f57p1fe799jsn1d9c38023f31',
-          'x-rapidapi-host': 'dropmail.p.rapidapi.com',
-          'Content-Type': 'application/json'
-        },
-        body:JSON.stringify({
-          query:`mutation{
-            introduceSession {
-              id, 
-              expiresAt, 
-              addresses{
-                address,
-              }
-            }}`
-          })
-      })
-      .then((response)=>response.json())
-      .then(json => json.data)
-      .then((data) =>salvaLocalStorage(data))
-      .catch(err => console.log(err.message))
- }
+//  function criaNovaSession(){
+//   fetch("https://dropmail.p.rapidapi.com/",{
+//         method:"POST",
+//         headers:{  
+//           'x-rapidapi-key': '285c294c94mshf770cfd187a1f57p1fe799jsn1d9c38023f31',
+//           'x-rapidapi-host': 'dropmail.p.rapidapi.com',
+//           'Content-Type': 'application/json'
+//         },
+//         body:JSON.stringify({
+//           query:`mutation{
+//             introduceSession {
+//               id, 
+//               expiresAt, 
+//               addresses{
+//                 address,
+//               }
+//             }}`
+//           })
+//       })
+//       .then((response)=>response.json())
+//       .then(json => json.data)
+//       .then((data) =>salvaLocalStorage(data))
+//       .catch(err => console.log(err.message))
+//  }
+
+async function criaNovaSession(){
+    const requisicao = fetch("https://dropmail.p.rapidapi.com/",{
+          method:"POST",
+          headers:{  
+            'x-rapidapi-key': '285c294c94mshf770cfd187a1f57p1fe799jsn1d9c38023f31',
+            'x-rapidapi-host': 'dropmail.p.rapidapi.com',
+            'Content-Type': 'application/json'
+          },
+          body:JSON.stringify({
+            query:`mutation{
+              introduceSession {
+                id, 
+                expiresAt, 
+                addresses{
+                  address,
+                }
+              }}`
+            })
+        })
+
+        const resposta = await requisicao
+        const respostaJson = await resposta.json()
+        
+        if(resposta.status == 200 && !respostaJson.errors){
+          salvaLocalStorage(respostaJson.data)
+        }else{
+          alert("Houve um erro. Recarregue a página ou volte mais tarde.")
+        }
+        // .then((response)=>response.json())
+        // .then(json => json.data)
+        // .then((data) =>salvaLocalStorage(data))
+        // .catch(err => console.log(err.message))
+   }
+
 
 React.useEffect(()=>{
       
@@ -135,7 +171,7 @@ React.useEffect(()=>{
             setaEmailsRecebidos(respostaDadoFinal) */
         }        
           buscaEmails()
-      },[/*15000*/90000])
+      },[15000])
     
       
   }
@@ -164,7 +200,7 @@ React.useEffect(()=>{
           Notification.requestPermission()
 
           if(Notification.permission==="granted" && notificar){
-            new Notification('Email temporario',{
+            new Notification('Tempmail',{
             body:"Você recebeu novos emails!"
             })
           }else if(Notification.permission==="granted" && notificar===false){

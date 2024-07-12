@@ -1,7 +1,7 @@
 import React from "react";
 
 const Footer= ()=>{
-    return <h1>Footer</h1>
+    return <p className="CopyRight">Desenvolvido por Athos M. muniz</p>
 }
 
 export default Footer;

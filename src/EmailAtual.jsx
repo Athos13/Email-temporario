@@ -11,7 +11,7 @@ const EmailAtual=({estadoEmail,estadoNotifica,setValorNotifica})=>{
 
     function alteraPermiNotifi(){
       setValorNotifica((estadoNotifica)=>!estadoNotifica)
-      console.log(estadoNotifica)
+      
     }
 
 return <div className="EmailAtual-container">
@@ -32,7 +32,6 @@ return <div className="EmailAtual-container">
             onClick={alteraPermiNotifi} aria-label="botão de notificações">
              <div className="notificar-container-svg">
                   NOTIFICAR
-                  {/* Notificação {estadoNotifica? "ativada":"desativada"} */}
                   <SgvNotificar color={estadoNotifica? "green":"black"}></SgvNotificar>
               </div> 
             </button>

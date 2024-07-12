@@ -18,7 +18,7 @@ body{
     margin: 20px auto;
 }
 .EmailAtual-h2{
-    margin-top: 50px;
+    margin-top: 40px;
     margin-bottom: 10px;
     font-size: 20px;
 }
@@ -41,6 +41,7 @@ body{
     border: 2px solid #2014072e;
     border-radius: 5px;
     letter-spacing: 1px;
+    font-weight: 600;
 }
 
 .notificar-email:focus, .copiar-email:focus, .textoEmail:focus{
@@ -51,7 +52,43 @@ body{
     margin-right: 8px;
     color:#F09D43;
     background-color: #1D1D1D;
+    position: relative;
 }
+.copiar-email::before{
+    content:"";
+    display:inline-block;
+    width: 0px;
+    height: 1px;
+    background-color: #F09D43;
+    position: absolute;
+    top:19px;
+    transition: 0.5s 0.8s;
+}
+.copiar-email:hover::before{
+    width: 52px;
+}
+
+
+.notificar-email{
+    position: relative;
+}
+.notificar-email::before{
+    content:"";
+    display:inline-block;
+    width: 0px;
+    height: 2px;
+    background-color:#8a5a27;
+    position: absolute;
+    top:19px;
+    left: 9px;
+    transition: 0.5s 0.8s;
+}
+.notificar-email:hover::before{
+    width: 70px;
+}
+
+
+
 .notificar-container-svg{
     display: flex;
     align-items: center;
@@ -81,6 +118,7 @@ span{
     grid-template-columns:300px 1fr;
     gap:12px;
     margin:0 auto;
+    margin-bottom: 30px;
     padding:16px
 }
 
@@ -138,6 +176,16 @@ span{
     color:lightGreen
 }
 
+.CopyRight{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color:#dddddd;
+    background-color: #1D1D1D;
+    height: 100px;
+    
+}
 @media(max-width:780px){
     .container-geral{
         display: flex;
@@ -169,14 +217,12 @@ span{
         background-color:#1D1D1D;
         border: none;
         border-radius: 5px;
-        /* font-weight: bolder; */
         letter-spacing: 1px;
     }
     .container-recebidos_selec{
         grid-template-columns: 1fr;
         justify-items: center;
         min-width: 80%;
-        /* position: relative; */
     }
     .listaEmail {
         width:90%;
@@ -198,7 +244,16 @@ span{
     .EmailAtual-container{
         width: auto;
     }
-    /* .textoEmail{
-        display: block;
-    } */
+
+}
+
+
+@media(max-width:400px){
+
+    .listaEmail{
+        width: 280px;
+    }
+    .divEmail{
+        width:90%
+    }
 }

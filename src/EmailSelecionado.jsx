@@ -66,7 +66,7 @@ const EmailSelecionado = ({idSessao})=>{
             <h4>{global.emailGlobal.titulo}</h4>
             <span> Autor: {global.emailGlobal.autor}</span>
             <p>{global.emailGlobal.conteudo}</p>
-            <p>{idSessao && idSessao.introduceSession.id}</p>
+            {/* <p>{idSessao && idSessao.introduceSession.id}</p> */}
         </div>
         :
         <p className="paragrafo-emailSelec">Selecione um email</p> //essa parte não está inclusa no EmailSelecionado-container, por isso aparece na media query
