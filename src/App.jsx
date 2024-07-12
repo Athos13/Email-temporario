@@ -55,30 +55,7 @@ function testaValidadeSession(dadosSession){
 }
 
 
-//  function criaNovaSession(){
-//   fetch("https://dropmail.p.rapidapi.com/",{
-//         method:"POST",
-//         headers:{  
-//           'x-rapidapi-key': '285c294c94mshf770cfd187a1f57p1fe799jsn1d9c38023f31',
-//           'x-rapidapi-host': 'dropmail.p.rapidapi.com',
-//           'Content-Type': 'application/json'
-//         },
-//         body:JSON.stringify({
-//           query:`mutation{
-//             introduceSession {
-//               id, 
-//               expiresAt, 
-//               addresses{
-//                 address,
-//               }
-//             }}`
-//           })
-//       })
-//       .then((response)=>response.json())
-//       .then(json => json.data)
-//       .then((data) =>salvaLocalStorage(data))
-//       .catch(err => console.log(err.message))
-//  }
+
 
 async function criaNovaSession(){
     const requisicao = fetch("https://dropmail.p.rapidapi.com/",{
@@ -108,10 +85,7 @@ async function criaNovaSession(){
         }else{
           alert("Houve um erro. Recarregue a página ou volte mais tarde.")
         }
-        // .then((response)=>response.json())
-        // .then(json => json.data)
-        // .then((data) =>salvaLocalStorage(data))
-        // .catch(err => console.log(err.message))
+        
    }
 
 
@@ -165,10 +139,7 @@ React.useEffect(()=>{
               clearInterval(intervalo)
               criaNovaSession()
             }
-            /**let resposta = await requisicao
-            let respostaJson = await resposta.json()
-            let respostaDadoFinal = await respostaJson.data.session.mails
-            setaEmailsRecebidos(respostaDadoFinal) */
+            
         }        
           buscaEmails()
       },[15000])
