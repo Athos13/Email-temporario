@@ -1,5 +1,5 @@
 import React from "react";
-import { ContextoGlobal } from "./contextoGlobal";
+import { ContextoGlobal } from "./ContextoGlobal";
 
 const EmailRecebidoItem = ({titulo,autor,conteudo})=>{
     const global = React.useContext(ContextoGlobal)

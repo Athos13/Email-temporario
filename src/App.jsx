@@ -4,7 +4,7 @@ import Footer from './Footer';
 import EmailAtual from './EmailAtual';
 import EmailsRecebidos from './EmailsRecebidos';
 import EmailSelecionado from './EmailSelecionado';
-import { DadosGlobais } from './contextoGlobal';
+import { DadosGlobais } from './ContextoGlobal';
 import "./App.css";
 
 const App = () => {
