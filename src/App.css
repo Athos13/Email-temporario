@@ -104,9 +104,10 @@ span{
     color:#F09D43;
     text-align:center;
     font-size:48px;
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+    font-weight: 400;
     padding:22px 0px;
-    background-color:#1D1D1D;
-    
+    border-bottom:1px solid #adadad;
 }
 
 .container-recebidos_selec{
